@@ -47,3 +47,14 @@ text-align: center;
   font-size: 15px;
   margin: 0;
 }
+
+.txt-cont{
+  font-family: 'Poppins', sans-serif;  
+  font-weight: 400;                    
+  font-style: normal;   
+  text-align: left !important;                
+  font-size: 16px;
+  line-height: 24px;                   
+  letter-spacing: 0%;
+   display: block;  
+}

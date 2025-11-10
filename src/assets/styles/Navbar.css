@@ -64,6 +64,7 @@
 
 .nav-link.active {
   color: #A20067 !important;
+  font-weight: bold;
 }
 
 .cust_par {
@@ -98,6 +99,7 @@
   transform: translateY(-15px);
   position: relative;
   z-index: 1;
+  bottom: -50px;
 }
 
 .riyan {
@@ -109,13 +111,44 @@
 }
 
 .custom_image_section_head {
-  height: 400px;
+  /* height: 400px; */
   margin-right: 0 !important;
   margin-left: 0 !important;
 }
 
-@media (max-width:768px) {
+@media (max-width:767px) {
   .flip_img {
     display: none;
+  }
+}
+
+
+
+
+
+
+
+
+
+@media (max-width: 992px) { /* Tablets */
+  .head_style {
+    font-size: 45px;
+  }
+}
+
+@media (max-width: 768px) { /* Large phones */
+  .head_style {
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 576px) { /* Small phones */
+  .head_style {
+    font-size: 28px;
+    text-align: center;
+  }
+
+  .riyan {
+    display: block; /* stack “Riyan” above “realtors” */
   }
 }

@@ -6,9 +6,9 @@ import contact from '../assets/Images/contactcard.png';
 import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 function ContactUs() {
   return (
-    <div className='my-5 text-center'>
+    <div className='  text-center'>
 
-      <div >
+      <div className='my-5' >
         <span className='me-1'><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path opacity="0.5" d="M9.75 0.75C9.75 5.72056 5.72056 9.75 0.75 9.75C5.72056 9.75 9.75 13.7794 9.75 18.75C9.75 13.7794 13.7794 9.75 18.75 9.75C13.7794 9.75 9.75 5.72056 9.75 0.75Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
         </svg></span>
@@ -51,22 +51,22 @@ function ContactUs() {
             <Form>
               <Row className="mb-3">
                 <Col xs={12} md={6} className="mb-3 mb-md-0">
-                  <Form.Label className="txt-aln">Name</Form.Label>
+                  <Form.Label className="txt-cont">Name</Form.Label>
                   <Form.Control type="text" placeholder="Enter your name" />
                 </Col>
                 <Col xs={12} md={6}>
-                  <Form.Label className="txt-aln">Phone</Form.Label>
+                  <Form.Label className="txt-cont">Phone</Form.Label>
                   <Form.Control type="text" placeholder="Enter phone number" />
                 </Col>
               </Row>
 
               <Form.Group className="mb-3">
-                <Form.Label className="txt-aln">Email</Form.Label>
+                <Form.Label className="txt-cont">Email</Form.Label>
                 <Form.Control type="email" placeholder="Enter your email" />
               </Form.Group>
 
               <Form.Group className="mb-4">
-                <Form.Label className="txt-aln">Message</Form.Label>
+                <Form.Label className="txt-cont">Message</Form.Label>
                 <Form.Control
                   as="textarea"
                   rows={3}
@@ -113,9 +113,22 @@ function ContactUs() {
         </Col>
       </Row>
     </Container>
+    <br></br>
+    <br/>
       </div>
-        <div className="my-5 text-center">
-      <iframe
+        <div className=" text-center">
+          <iframe 
+          title="Google Map"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31096.102513009413!2d80.1923108556997!3d13.034855840697892!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5267c15401afc1%3A0x7acc871dc8f94f13!2sAshok%20Pillar!5e0!3m2!1sen!2sin!4v1762517979703!5m2!1sen!2sin"
+           width="100%" 
+           height="450"
+            style={{ border: 0 }}
+             allowfullscreen=""
+              loading="lazy" 
+              referrerpolicy="no-referrer-when-downgrade"
+              ></iframe>
+      {/* <iframe
+      className=''
         title="Google Map"
         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2612.7931674709266!2d80.18460954059948!3d13.010660667505054!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5260caa7aa0a23%3A0xf80a87885830c36c!2s2%2C%20Ramapuram%2C%20Wood%20Creek%20County%2C%20Tulasingapuram%2C%20Nandambakkam%2C%20Tamil%20Nadu%20600016!5e1!3m2!1sen!2sin!4v1762342280985!5m2!1sen!2sin"
         width="100%"
@@ -124,7 +137,7 @@ function ContactUs() {
         allowFullScreen
         loading="lazy"
         referrerPolicy="no-referrer-when-downgrade"
-      ></iframe>
+      ></iframe> */}
     </div>
 
     </div>

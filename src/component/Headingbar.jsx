@@ -30,7 +30,7 @@ function Headingbar() {
               Discover a wide range of verified homes, cars, and bikes – all in one trusted place.
               Browse, compare, and buy with confidence, anytime and anywhere.
             </p>
-            <Button className='get_started_btn fs-6 fs-md-5 fs-lg-4'>View Listings</Button>
+            <Button className='get_started_btn fs-6 fs-md-5 fs-lg-4'>Know More</Button>
           </>
         );
       case "contact":
@@ -41,7 +41,7 @@ function Headingbar() {
               Discover a wide range of verified homes, cars, and bikes – all in one trusted place.
               Browse, compare, and buy with confidence, anytime and anywhere.
             </p>
-            <Button className='get_started_btn fs-6 fs-md-5 fs-lg-4'>Contact Now</Button>
+            {/* <Button className='get_started_btn fs-6 fs-md-5 fs-lg-4'>Contact Now</Button> */}
           </>
         );
       default:
@@ -54,10 +54,10 @@ function Headingbar() {
       <Row className='g-0'> 
         <Col md={12}><Navbar collapseOnSelect expand="lg" className="bg-body-tertiary custom_nav">
         <Container>
-          <Navbar.Brand href="#home" className='head_style'>
-            <span className="riyan ">Riyan</span>
-            <span className="realators ">realtors</span>
-          </Navbar.Brand>
+             <Navbar.Brand href="#home" className="head_style d-flex flex-column flex-sm-row align-items-center text-center text-sm-start">
+          <span className="riyan me-1">Riyan</span>
+          <span className="realators">realtors</span>
+        </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto"></Nav>

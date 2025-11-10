@@ -7,6 +7,19 @@
   
 }
 
+.filter-divider {
+  border-right: 1px solid #e0e0e0; /* light gray separator */
+}
+
+/* Remove border on last column in the row */
+.filter-divider:last-child {
+  border-right: none;
+}
+
+/* Optional: Add a little padding to avoid text touching the line */
+.filter-divider {
+  padding-right: 15px;
+}
 
 
 /* .poster-algn{
@@ -23,6 +36,7 @@
 
 .blur-background {
   filter: blur(6px);
+   opacity: 1;
   pointer-events: none;
   user-select: none;
 }
@@ -35,6 +49,7 @@
 
 .modal-backdrop.show {
   backdrop-filter: blur(8px);
+  opacity: 1;
   background-color: rgba(0, 0, 0, 0.3);
 }
 
@@ -44,4 +59,43 @@
   height: 50px;
   object-fit: cover;
 
+}
+
+.btn-clr{
+  background: #5E81F4;
+
+}
+
+
+.cust-frm{
+  font-family: Roboto;
+font-weight: 400;
+font-style: Regular;
+font-size: 20px;
+
+line-height: 100%;
+letter-spacing: 0%;
+vertical-align: middle;
+
+}
+
+
+.border {
+ 
+  transition: all 0.3s ease;
+}
+
+
+.responsive-title {
+  font-size: clamp(14px, 1.2vw, 18px);
+}
+
+.responsive-label {
+  font-size: clamp(12px, 1vw, 14px);
+}
+
+
+.border:hover {
+  background-color: rgba(13, 110, 253, 0.05);
+  border-color: #0d6efd;
 }
