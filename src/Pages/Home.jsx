@@ -55,37 +55,28 @@ const handleCloseEnquiry = () => setShowEnquiryModal(false);
       console.log("Fetching all data...");
 
       try {
-        // Import URLs from .env
         const propertyUrl = import.meta.env.VITE_PROPERTY_BASE_URL;
         const carUrl = import.meta.env.VITE_FOURWHEELER_BASE_URL;
         const bikeUrl = import.meta.env.VITE_TWOWHEELER_BASE_URL;
-
-        // Fetch all three APIs together
         const [propertyRes, carRes, bikeRes] = await Promise.all([
           axios.get(propertyUrl),
           axios.get(carUrl),
           axios.get(bikeUrl),
         ]);
-
-        // Set Property Data
         if (propertyRes.data?.properties) {
           setProperties(propertyRes.data.properties);
         }
-
-        // Set Car Data
         if (Array.isArray(carRes.data)) {
           setCars(carRes.data);
         }
-
-        // Set Bike Data
         if (Array.isArray(bikeRes.data)) {
           setBikes(bikeRes.data);
         }
 
         // // Log results (for debugging)
         // console.log("Properties:", propertyRes.data);
-        // console.log("✅ Cars:", carRes.data);
-        // console.log("✅ Bikes:", bikeRes.data);
+        // console.log(" Cars:", carRes.data);
+        // console.log("Bikes:", bikeRes.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -572,7 +563,7 @@ const handleCloseEnquiry = () => setShowEnquiryModal(false);
                     </Col>
                   </Row>
                   <div className="my-2">
-                    <Button className="btn-clr " onClick={() => handleOpenEnquiry()} >Enquire Now</Button>
+                    <Button className="btn-clr " onClick={() => handleOpenEnquiry(selectedProperty)} >Enquire Now</Button>
                   </div>
 
                   <div className="d-flex justify-content-between align-items-center mt-4 flex-wrap">

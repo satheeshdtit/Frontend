@@ -406,7 +406,7 @@ const handleCloseEnquiry = () => setShowEnquiryModal(false);
                 </Col>
               </Row>
               <div className="my-2">
-                <Button className="btn-clr "onClick={() => handleOpenEnquiry()} >Enquire Now</Button>
+                <Button className="btn-clr "onClick={() => handleOpenEnquiry(selectedProperty)} >Enquire Now</Button>
               </div>
               <div className="d-flex justify-content-between align-items-center mt-4 flex-wrap">
                 <div>
@@ -563,7 +563,6 @@ const handleCloseEnquiry = () => setShowEnquiryModal(false);
                     ))}
               </div>
               <Row className="mt-5 g-4 align-items-stretch">
-                {/* 🗺️ Map */}
                 <Col md={6}>
                   <div className="agent-card shadow-sm rounded overflow-hidden h-100">
                     <iframe

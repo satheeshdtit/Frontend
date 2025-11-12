@@ -30,10 +30,10 @@ const Enqire = ({ show, handleClose, selectedItem }) => {
 
     emailjs
       .sendForm(
-        "service_6h8xxr5", 
-        "template_86hr5be", 
+        "service_6h8xxr5",
+        "template_86hr5be",
         formRef.current,
-        "29MY0CRzmH67-fY1W" 
+        "29MY0CRzmH67-fY1W"
       )
       .then(
         (result) => {
@@ -60,22 +60,23 @@ const Enqire = ({ show, handleClose, selectedItem }) => {
 
       <Modal.Body>
         <Form ref={formRef} onSubmit={handleSendEmail}>
-          {/* Category */}
           <Form.Group className="mb-3">
             <Form.Label>Select Category</Form.Label>
             <Form.Select
               name="category"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
-              disabled={!!selectedItem} // disable when coming from product
+              style={
+                selectedItem
+                  ? { pointerEvents: "none", backgroundColor: "#f5f8ff" }
+                  : {}
+              }
             >
               <option value="Property">Property</option>
               <option value="Car">Car</option>
               <option value="Bike">Bike</option>
             </Form.Select>
           </Form.Group>
-
-          {/* Item Name */}
           <Form.Group className="mb-3">
             <Form.Label>{getNameLabel()}</Form.Label>
             <Form.Control
@@ -88,8 +89,6 @@ const Enqire = ({ show, handleClose, selectedItem }) => {
               readOnly={!!selectedItem} // readonly when auto-filled
             />
           </Form.Group>
-
-          {/* Name & Phone */}
           <Row className="mb-3">
             <Col xs={12} md={6} className="mb-3 mb-md-0">
               <Form.Label>Your Name</Form.Label>
@@ -109,8 +108,6 @@ const Enqire = ({ show, handleClose, selectedItem }) => {
               />
             </Col>
           </Row>
-
-          {/* Email */}
           <Form.Group className="mb-3">
             <Form.Label>Email</Form.Label>
             <Form.Control
@@ -120,8 +117,6 @@ const Enqire = ({ show, handleClose, selectedItem }) => {
               required
             />
           </Form.Group>
-
-          {/* Message */}
           <Form.Group className="mb-4">
             <Form.Label>Message</Form.Label>
             <Form.Control
@@ -132,8 +127,6 @@ const Enqire = ({ show, handleClose, selectedItem }) => {
               required
             />
           </Form.Group>
-
-          {/* Submit Button */}
           <div className="text-center">
             <Button
               variant="primary"
