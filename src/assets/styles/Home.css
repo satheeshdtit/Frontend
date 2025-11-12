@@ -253,53 +253,32 @@ letter-spacing: 0;
   
   
 .shield-img {
-  max-width: 100%;
-  width: 35%;
-  height: auto;
-  display: block;
-  margin-left: auto;
-  margin-right: 0;
+  width: 320px; /* fixed size */
+  height: 250px;
   object-fit: contain;
-  transition: all 0.3s ease-in-out;
 }
 
-
-.shield-img {
-  max-width: 35%;
-  height: auto;
-  display: block;
-  margin-left: auto;
-  margin-right: 0;
-}
-
-@media (max-width: 1199px) {
+/* 🖥️ Large screens (default) */
+@media (min-width: 992px) {
   .shield-img {
-    max-width: 45%;
-    margin-right: 0;
+    width: 350px;
   }
 }
 
-/* 📱 Tablets (768px - 991px) */
-@media (max-width: 992px) {
+/* 📱 Tablets */
+@media (max-width: 991px) and (min-width: 577px) {
   .shield-img {
-    width: 50%;
+    width: 280px;
     margin: 0 auto;
     display: block;
   }
 }
 
-/* 📱 Small tablets / large phones (577px - 767px) */
-@media (max-width: 768px) {
-  .shield-img {
-    width: 60%;
-    margin: 10px auto;
-  }
-}
-
-/* 📱 Small phones (Up to 576px) */
+/* 📱 Small phones */
 @media (max-width: 576px) {
   .shield-img {
-    display: none;
+    width: 250px;
+    margin: 10px auto;
+    display: block;
   }
 }
-
