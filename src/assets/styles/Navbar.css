@@ -27,7 +27,7 @@
 }
 
 .get-in-touch-btn {
-  background-color: #A780E3;
+  background-color: #F69522;
   border: none;
   color: white;
   font-weight: 500;
@@ -36,12 +36,12 @@
 }
 
 .get-in-touch-btn:hover {
-  background-color: #8a5fcf;
+  background-color: #BD2230;
 }
 
 .hero-section {
   position: relative;
-  background: linear-gradient(90deg, #C1DEE8 0%, #FBD9B9 100%);
+  background: linear-gradient(90deg, #FFFFFF 0%, #FFE8D3 100%);
   margin-right: 0 !important;
   margin-left: 0 !important;
 }
@@ -63,7 +63,7 @@
 }
 
 .nav-link.active {
-  color: #A20067 !important;
+  color: #BD2230 !important;
   font-weight: bold;
 }
 
@@ -74,7 +74,7 @@
   font-size: 40px;
   line-height: 1;
   letter-spacing: 0;
-  color: #363868;
+  color: #BD2230;
 }
 
 .cust_des {
@@ -89,7 +89,11 @@
 .get_started_btn {
   height: 49px;
   border-radius: 10px;
-  background-color: #363868;
+  background-color: #F69522;
+}
+
+.get_started_btn:hover{
+  background-color: #BD2230;
 }
 
 .flip_img {
@@ -123,13 +127,6 @@
 }
 
 
-
-
-
-
-
-
-
 @media (max-width: 992px) { /* Tablets */
   .head_style {
     font-size: 45px;
@@ -139,7 +136,7 @@
 @media (max-width: 768px) { /* Large phones */
   .head_style {
     font-size: 36px;
-  }
+  }  
 }
 
 @media (max-width: 576px) { /* Small phones */
@@ -152,3 +149,25 @@
     display: block; /* stack “Riyan” above “realtors” */
   }
 }
+
+
+.nav-logo {
+  width: 170px;      /* Adjust based on Figma */
+  height: auto;      /* Maintains aspect ratio */
+  object-fit: contain;
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .nav-logo {
+    width: 140px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .nav-logo {
+    width: 120px;
+  }
+}
+

@@ -8,7 +8,7 @@
   padding: 50px 70px;
   width: 100%;
   height: auto;
-  color: #ffffff;
+  color: #373636;
   overflow: hidden;
 }
 
@@ -16,12 +16,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    135deg,
-    rgba(54, 56, 104, 0.95) 0%,
-    rgba(90, 92, 160, 0.85) 50%,
-    rgba(54, 56, 104, 0.95) 100%
-  );
+  background: #FFFFFF;
   z-index: 0;
 }
 
@@ -61,7 +56,7 @@ font-family: "Berkshire Swash", serif;
 }
 
 .footer-links ul li a {
-  color: rgba(255, 255, 255, 0.85);
+  color: #373636;
   text-decoration: none;
   font-family: "Poppins", sans-serif;
   font-size: 15px;
@@ -70,12 +65,12 @@ font-family: "Berkshire Swash", serif;
 }
 
 .footer-links ul li a:hover {
-  color: #ffffff;
+  color: #070000;
 }
 
 
 .footer-divider {
-  border-top: 2px solid white;
+  border-top: 2px solid rgba(87, 85, 85, 0.801);
   margin-top: 30px;
   margin-bottom: 10px;
 }
@@ -84,7 +79,35 @@ font-family: "Berkshire Swash", serif;
 .footer-bottom {
   text-align: left;
   font-size: 14px;
-  color: #cccccc;
+  color: #373636;
+}
+
+
+.footer-logo-img {
+  width: 270px;       /* Figma width */
+  height: auto;       /* keeps aspect ratio */
+  max-width: 100%;    /* responsive scaling */
+  object-fit: contain;
+  display: block;
+}
+
+/* Center on small screens */
+@media (max-width: 768px) {
+  .footer-logo {
+    justify-content: center !important;
+    text-align: center !important;
+  }
+
+  .footer-logo-img {
+    width: 220px; /* Slightly smaller for mobiles */
+  }
+}
+
+/* Very small phones */
+@media (max-width: 480px) {
+  .footer-logo-img {
+    width: 180px;
+  }
 }
 
 

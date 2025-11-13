@@ -62,7 +62,7 @@
 }
 
 .btn-clr{
-  background: #5E81F4;
+  background: #F69522;
 
 }
 
@@ -99,3 +99,23 @@ vertical-align: middle;
   background-color: rgba(13, 110, 253, 0.05);
   border-color: #0d6efd;
 }
+
+.btn-clr:hover {
+  background-color: #BD2230;
+
+}
+
+
+.cust_cardhead2 {
+
+     font-family: 'Poppins', sans-serif;
+     font-weight: 600;
+     font-style: normal;
+     font-size: 50px;
+     line-height: 120%;
+     color: aliceblue;
+     /* width: 80%;
+     align-self: center; */
+     letter-spacing: 0%;
+     border: none;
+ }

@@ -3,7 +3,7 @@
 font-weight: 600;
 font-style: SemiBold;
 font-size: 29px;
-
+color: #BD2230;
 line-height: 120%;
 letter-spacing: 0%;
 text-align: center;
@@ -17,8 +17,8 @@ text-align: center;
 }
 
 .contact-card {
-  background-color: #5b7bfa;
-  color: white;
+  background-color: #FFFFFF;
+  color: #2F2D2D;
   border-radius: 20px;
   padding: 25px;
   margin: 10px;

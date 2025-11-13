@@ -10,7 +10,8 @@ import {
   Image,
 } from "react-bootstrap";
 import banner from "../assets/Images/Home_banner.png";
-import Enqire from "../Pages/Enqire"; 
+import Enqire from "../Pages/Enqire";
+import logo from "../assets/Images/logo.png"; 
 
 function Headingbar() {
   const [activeTab, setActiveTab] = useState("home");
@@ -34,7 +35,7 @@ function Headingbar() {
               one trusted place. Browse, compare, and buy with confidence,
               anytime and anywhere.
             </p>
-            <Button className="get_started_btn fs-6 fs-md-5 fs-lg-4">
+            <Button className="get_started_btn fs-6 fs-md-5 fs-lg-4 border-0">
               Get Started
             </Button>
           </>
@@ -48,7 +49,7 @@ function Headingbar() {
               one trusted place. Browse, compare, and buy with confidence,
               anytime and anywhere.
             </p>
-            <Button className="get_started_btn fs-6 fs-md-5 fs-lg-4">
+            <Button className="get_started_btn fs-6 fs-md-5 fs-lg-4 border-0">
               Know More
             </Button>
           </>
@@ -80,12 +81,16 @@ function Headingbar() {
           >
             <Container>
               <Navbar.Brand
-                href="#home"
-                className="head_style d-flex flex-column flex-sm-row align-items-center text-center text-sm-start"
-              >
-                <span className="riyan me-1">Riyan</span>
-                <span className="realators">realtors</span>
-              </Navbar.Brand>
+  href="#home"
+  className="d-flex align-items-center"
+>
+  <img 
+    src={logo} 
+    alt="Riyan Realtors Logo" 
+    className="nav-logo"
+  />
+</Navbar.Brand>
+
 
               <Navbar.Toggle aria-controls="responsive-navbar-nav" />
               <Navbar.Collapse id="responsive-navbar-nav">

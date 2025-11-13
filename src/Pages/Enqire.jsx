@@ -72,6 +72,7 @@ const Enqire = ({ show, handleClose, selectedItem }) => {
                   : {}
               }
             >
+              <option value="Nil">Nil</option>
               <option value="Property">Property</option>
               <option value="Car">Car</option>
               <option value="Bike">Bike</option>
@@ -86,7 +87,7 @@ const Enqire = ({ show, handleClose, selectedItem }) => {
               value={itemName}
               onChange={(e) => setItemName(e.target.value)}
               required
-              readOnly={!!selectedItem} // readonly when auto-filled
+              readOnly={!!selectedItem}
             />
           </Form.Group>
           <Row className="mb-3">
@@ -130,7 +131,7 @@ const Enqire = ({ show, handleClose, selectedItem }) => {
           <div className="text-center">
             <Button
               variant="primary"
-              className="px-5 py-2 fw-semibold rounded-3"
+              className="px-5 py-2 fw-semibold rounded-3 btn-clr border-0"
               type="submit"
               disabled={isSending}
             >
