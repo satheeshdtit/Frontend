@@ -12,7 +12,7 @@ function DetailsModal({ show, handleClose, selectedProperty, handleOpenEnquiry }
            show={show}
            onHide={handleClose}
            centered
-           size="xl"
+           size="xl" 
            backdrop="static"
            className="details-modal"
          >

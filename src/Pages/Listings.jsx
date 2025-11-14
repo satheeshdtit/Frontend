@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+// import axios from "axios";
 import Card from "react-bootstrap/Card";
 import {
   Row,
@@ -21,9 +21,9 @@ import {
 import { FaPhoneVolume } from "react-icons/fa6";
 import { TbListDetails } from "react-icons/tb";
 import { TiTick } from "react-icons/ti";
-// import profile from "../assets/Images/profile.jpg";
 import Enqire from "../Pages/Enqire";
 import DetailsModal from "../component/DetailsModal";
+import { getAllListings } from "../Services/ApiServices";
 
 
 function Listings() {
@@ -38,13 +38,13 @@ function Listings() {
   const [bikes, setBikes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showEnquiryModal, setShowEnquiryModal] = useState(false);
-const [selectedItem, setSelectedItem] = useState(null);
+  const [selectedItem, setSelectedItem] = useState(null);
 
-const handleOpenEnquiry = (item) => {
-  setSelectedItem(item || null);
-  setShowEnquiryModal(true);
-};
-const handleCloseEnquiry = () => setShowEnquiryModal(false);
+  const handleOpenEnquiry = (item) => {
+    setSelectedItem(item || null);
+    setShowEnquiryModal(true);
+  };
+  const handleCloseEnquiry = () => setShowEnquiryModal(false);
 
   const imageBase = import.meta.env.VITE_IMAGE_BASE_URL;
 
@@ -55,53 +55,68 @@ const handleCloseEnquiry = () => setShowEnquiryModal(false);
   };
 
   useEffect(() => {
-    const fetchAllData = async () => {
-      console.log("Fetching all data...");
+  const fetchData = async () => {
+    try {
+      const { properties, cars, bikes } = await getAllListings();
+      setProperties(properties);
+      setCars(cars);
+      setBikes(bikes);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-      try {
-        const propertyUrl = import.meta.env.VITE_PROPERTY_BASE_URL;
-        const carUrl = import.meta.env.VITE_FOURWHEELER_BASE_URL;
-        const bikeUrl = import.meta.env.VITE_TWOWHEELER_BASE_URL;
+  fetchData();
+}, []);
 
-        const [propertyRes, carRes, bikeRes, ] = await Promise.all([
-          axios.get(propertyUrl),
-          axios.get(carUrl),
-          axios.get(bikeUrl),
-    
-        ]);
-
-        if (propertyRes.data?.properties) {
-          setProperties(propertyRes.data.properties);
-        }
-
-        if (Array.isArray(carRes.data)) {
-          setCars(carRes.data);
-        }
-
-        if (Array.isArray(bikeRes.data)) {
-          setBikes(bikeRes.data);
-        }
-
-        console.log("Properties:", propertyRes.data);
-        console.log("Cars:", carRes.data);
-        console.log("Bikes:", bikeRes.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchAllData();
-  }, []);
 
   if (loading) return <p className="text-center mt-5">Loading listings...</p>;
 
- const combinedData =
-  activeTab === "All"
-    ? [
-        // combine all items
-        ...properties.map((p) => ({
+  const combinedData =
+    activeTab === "All"
+      ? [
+          // combine all items
+          ...properties.map((p) => ({
+            id: p._id,
+            type: "Property",
+            image: `${imageBase}${p.propertyImages?.[0]}`,
+            title: p.propertyName,
+            price: `${p.price} Cr`,
+            location: p.location,
+            beds: p.noOfBedrooms,
+            baths: p.noOfBathrooms,
+            area: p.sqFeet,
+            description: p.description,
+          })),
+          ...cars.map((c) => ({
+            id: c._id,
+            type: "Car",
+            image: `${imageBase}${c.vehicleImage?.[0]}`,
+            title: c.vehicleName,
+            price: `₹${c.price.toLocaleString("en-IN")}`,
+            location: c.location,
+            model: c.purchaseYear,
+            brand: c.vehicleName,
+            kilometer: c.kmDriven,
+            description: c.description,
+          })),
+          ...bikes.map((b) => ({
+            id: b._id,
+            type: "Bike",
+            image: `${imageBase}${b.vehicleImage?.[0]}`,
+            title: b.vehicleName,
+            price: `₹${b.price.toLocaleString("en-IN")}`,
+            location: b.location,
+            model: b.purchaseYear,
+            brand: b.vehicleName,
+            kilometer: b.kmDriven,
+            description: b.description,
+          })),
+        ]
+      : activeTab === "Property"
+      ? properties.map((p) => ({
           id: p._id,
           type: "Property",
           image: `${imageBase}${p.propertyImages?.[0]}`,
@@ -112,8 +127,9 @@ const handleCloseEnquiry = () => setShowEnquiryModal(false);
           baths: p.noOfBathrooms,
           area: p.sqFeet,
           description: p.description,
-        })),
-        ...cars.map((c) => ({
+        }))
+      : activeTab === "Car"
+      ? cars.map((c) => ({
           id: c._id,
           type: "Car",
           image: `${imageBase}${c.vehicleImage?.[0]}`,
@@ -124,8 +140,8 @@ const handleCloseEnquiry = () => setShowEnquiryModal(false);
           brand: c.vehicleName,
           kilometer: c.kmDriven,
           description: c.description,
-        })),
-        ...bikes.map((b) => ({
+        }))
+      : bikes.map((b) => ({
           id: b._id,
           type: "Bike",
           image: `${imageBase}${b.vehicleImage?.[0]}`,
@@ -136,46 +152,7 @@ const handleCloseEnquiry = () => setShowEnquiryModal(false);
           brand: b.vehicleName,
           kilometer: b.kmDriven,
           description: b.description,
-        })),
-      ]
-    : activeTab === "Property"
-    ? properties.map((p) => ({
-        id: p._id,
-        type: "Property",
-        image: `${imageBase}${p.propertyImages?.[0]}`,
-        title: p.propertyName,
-        price: `${p.price} Cr`,
-        location: p.location,
-        beds: p.noOfBedrooms,
-        baths: p.noOfBathrooms,
-        area: p.sqFeet,
-        description: p.description,
-      }))
-    : activeTab === "Car"
-    ? cars.map((c) => ({
-        id: c._id,
-        type: "Car",
-        image: `${imageBase}${c.vehicleImage?.[0]}`,
-        title: c.vehicleName,
-        price: `₹${c.price.toLocaleString("en-IN")}`,
-        location: c.location,
-        model: c.purchaseYear,
-        brand: c.vehicleName,
-        kilometer: c.kmDriven,
-        description: c.description,
-      }))
-    : bikes.map((b) => ({
-        id: b._id,
-        type: "Bike",
-        image: `${imageBase}${b.vehicleImage?.[0]}`,
-        title: b.vehicleName,
-        price: `₹${b.price.toLocaleString("en-IN")}`,
-        location: b.location,
-        model: b.purchaseYear,
-        brand: b.vehicleName,
-        kilometer: b.kmDriven,
-        description: b.description,
-      }));
+        }));
 
   const filteredProperties = combinedData.filter((p) => {
     const matchesLocation = p.location
@@ -287,7 +264,9 @@ const handleCloseEnquiry = () => setShowEnquiryModal(false);
               >
                 Clear
               </Button>
-              <Button variant="primary" className="btn-clr border-0">Search</Button>
+              <Button variant="primary" className="btn-clr border-0">
+                Search
+              </Button>
             </Col>
           </Row>
         </div>
@@ -338,11 +317,12 @@ const handleCloseEnquiry = () => setShowEnquiryModal(false);
                   ) : null}
 
                   <div className="d-flex flex-column flex-sm-row align-items-stretch justify-content-center w-100 gap-2">
-                      <Button
+                    <Button
                       variant="primary"
                       className="enquiry-btn flex-fill rounded-pill px-4 py-2"
                       onClick={() => handleOpenEnquiry(p)}
-                    ><TbListDetails />
+                    >
+                      <TbListDetails />
                       Enquiry Now
                     </Button>
 
@@ -361,48 +341,64 @@ const handleCloseEnquiry = () => setShowEnquiryModal(false);
         </Row>
       </Container>
 
-         
-        <Container className="my-5">
-          <div className="contact-banner bg-dark bg-opacity-50 text-white rounded-5 overflow-hidden shadow position-relative">
-            <div className="position-absolute top-0 start-0 w-100 h-100 bg-dark bg-opacity-50"></div>
+      <Container className="my-5">
+        <div className="contact-banner bg-dark bg-opacity-50 text-white rounded-5 overflow-hidden shadow position-relative">
+          <div className="position-absolute top-0 start-0 w-100 h-100 bg-dark bg-opacity-50"></div>
 
-
-             <Row className="align-items-center position-relative p-5">
-
-              <Col md={8}>
-                 <h3 className="cust_cardhead2 fw-bold mb-2">Need Help? Contact Us</h3>
-                <p className="txt-aln text-light mb-0">
-                   Need help finding the right home or vehicle? Contact us today —
-                   we’re just a message or call away.
-                 </p>
-              </Col>
-
-
-              <Col
-                md={4}
-                className="d-flex flex-column align-items-md-end justify-content-md-end mt-3 mt-md-0"
+          <Row className="align-items-center position-relative p-4 p-md-5">
+            <Col md={8} className="mb-3 mb-md-0">
+              <h3
+                className="fw-bold mb-2"
+                style={{ fontSize: "clamp(1.2rem, 2vw, 2rem)" }}
               >
-                <div className="d-flex align-items-center mb-3 text-light">
-                  <FaPhoneVolume className="text-warning me-2 fs-5 " />
-                  <span className="fs-5">+91 9890109265</span>
-                </div>
+                Need Help? Contact Us
+              </h3>
 
-                <Button className="fw-semibold px-5 py-2 btn-clr fs-5 border-0">
-                  Contact Us
-                </Button>
-              </Col>
+              <p
+                className="text-light mb-0"
+                style={{
+                  fontSize: "clamp(0.9rem, 1.5vw, 1.2rem)",
+                  lineHeight: "1.5",
+                }}
+              >
+                Need help finding the right home or vehicle? Contact us today —
+                we’re just a message or call away.
+              </p>
+            </Col>
 
-            </Row>
-          </div>
-        </Container>
+            {/* RIGHT PHONE + BUTTON */}
+            <Col
+              md={4}
+              className="d-flex flex-column align-items-start align-items-md-end justify-content-md-end"
+            >
+              <div
+                className="d-flex align-items-center mb-3 text-light"
+                style={{ fontSize: "clamp(1rem, 1.6vw, 1.3rem)" }}
+              >
+                <FaPhoneVolume className="text-warning me-2 fs-5" />
+                <span>+91 9890109265</span>
+              </div>
 
-     <DetailsModal
-  show={showModal}
-  handleClose={handleClose}
-  selectedProperty={selectedProperty}
-  handleOpenEnquiry={handleOpenEnquiry}
-/>
+              <Button
+                className="fw-semibold border-0 btn-clr"
+                style={{
+                  fontSize: "clamp(0.9rem, 1.4vw, 1.1rem)",
+                  padding: "0.6rem 2rem",
+                }}
+              >
+                Contact Us
+              </Button>
+            </Col>
+          </Row>
+        </div>
+      </Container>
 
+      <DetailsModal
+        show={showModal}
+        handleClose={handleClose}
+        selectedProperty={selectedProperty}
+        handleOpenEnquiry={handleOpenEnquiry}
+      />
 
       <Enqire
         show={showEnquiryModal}
@@ -414,6 +410,10 @@ const handleCloseEnquiry = () => setShowEnquiryModal(false);
 }
 
 export default Listings;
+
+
+
+
 
 
 

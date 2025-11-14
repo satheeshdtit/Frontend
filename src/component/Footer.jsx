@@ -6,17 +6,25 @@ import logo from "../assets/Images/logo.png";
 const Footer = ({ onNavigate }) => {
   const navigate = useNavigate();
 
-  const nav = (e, section, tab = null, route = null) => {
-    e.preventDefault();
-    if (route) {
-      navigate(route);
-      if (typeof onNavigate === "function") onNavigate(section, tab);
-      return;
-    }
-    if (typeof onNavigate === "function") {
-      onNavigate(section, tab);
-    }
-  };
+ const nav = (e, section, tab = null, route = null) => {
+  e.preventDefault();
+
+  if (route) {
+    navigate(route);
+    if (typeof onNavigate === "function") onNavigate(section, tab);
+    return;
+  }
+
+  if (window.location.pathname !== "/") {
+    navigate("/", {
+      state: { section, tab }
+    });
+    return;
+  }
+
+  if (typeof onNavigate === "function") onNavigate(section, tab);
+};
+
 
   return (
     <footer className="footer-section">

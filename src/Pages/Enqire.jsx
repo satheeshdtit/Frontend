@@ -3,7 +3,7 @@ import { Modal, Button, Form, Row, Col } from "react-bootstrap";
 import emailjs from "emailjs-com";
 
 const Enqire = ({ show, handleClose, selectedItem }) => {
-  const [category, setCategory] = useState("Property");
+  const [category, setCategory] = useState("Nil");
   const [itemName, setItemName] = useState("");
   const [isSending, setIsSending] = useState(false);
   const [sent, setSent] = useState(false);
@@ -13,7 +13,7 @@ const Enqire = ({ show, handleClose, selectedItem }) => {
       setCategory(selectedItem.type || "Property");
       setItemName(selectedItem.title || "");
     } else {
-      setCategory("Property");
+      setCategory("Nil");
       setItemName("");
     }
   }, [selectedItem]);
@@ -22,6 +22,7 @@ const Enqire = ({ show, handleClose, selectedItem }) => {
     if (category === "Property") return "Property Name";
     if (category === "Car") return "Car Name";
     if (category === "Bike") return "Bike Name";
+    return "Item Name";
   };
 
   const handleSendEmail = (e) => {
@@ -103,9 +104,12 @@ const Enqire = ({ show, handleClose, selectedItem }) => {
             <Col xs={12} md={6}>
               <Form.Label>Phone</Form.Label>
               <Form.Control
-                type="text"
+                type="tel"
                 name="phone"
                 placeholder="Enter phone number"
+                pattern="^[0-9]{10}$"
+                maxLength="10"
+                required
               />
             </Col>
           </Row>

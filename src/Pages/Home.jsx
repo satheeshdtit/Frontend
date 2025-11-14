@@ -1,12 +1,28 @@
 import React from "react";
-import {useState, useEffect, useRef, useImperativeHandle, forwardRef,} from "react";
-import axios from "axios";
+import {
+  useState,
+  useEffect,
+  useRef,
+  useImperativeHandle,
+  forwardRef,
+} from "react";
+// import axios from "axios";
 import Card from "react-bootstrap/Card";
-import { Row, Col, Image, CardBody, Button, Container, Modal, Form,} from "react-bootstrap";
+import {
+  Row,
+  Col,
+  Image,
+  CardBody,
+  Button,
+  Container,
+  Modal,
+  Form,
+} from "react-bootstrap";
 import Nav from "react-bootstrap/Nav";
 import { TbListDetails } from "react-icons/tb";
 import { FaBed, FaBath, FaRulerCombined, FaHeart, FaEye } from "react-icons/fa";
 import { TiTick } from "react-icons/ti";
+import { useLocation } from "react-router-dom";
 import Enqire from "../Pages/Enqire";
 import car from "../assets/Images/carlogo.png";
 import bike from "../assets/Images/bikelogo.png";
@@ -14,7 +30,7 @@ import house from "../assets/Images/houselogo.png";
 import Images from "../assets/Images/image.png";
 import shield2 from "../assets/Images/shield2.png";
 import DetailsModal from "../component/DetailsModal";
-
+import { getAllListings } from "../Services/ApiServices";
 
 const Home = forwardRef(function Home(props, ref) {
   const [selectedProperty, setSelectedProperty] = useState(null);
@@ -24,6 +40,7 @@ const Home = forwardRef(function Home(props, ref) {
   const [bikes, setBikes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
+  const location = useLocation();
   const handleShow = (property) => {
     setSelectedProperty(property);
     setShowModal(true);
@@ -44,32 +61,12 @@ const Home = forwardRef(function Home(props, ref) {
 
   const imageBase = import.meta.env.VITE_IMAGE_BASE_URL;
   useEffect(() => {
-    const fetchAllData = async () => {
-      console.log("Fetching all data...");
-
+    const fetchData = async () => {
       try {
-        const propertyUrl = import.meta.env.VITE_PROPERTY_BASE_URL;
-        const carUrl = import.meta.env.VITE_FOURWHEELER_BASE_URL;
-        const bikeUrl = import.meta.env.VITE_TWOWHEELER_BASE_URL;
-        const [propertyRes, carRes, bikeRes] = await Promise.all([
-          axios.get(propertyUrl),
-          axios.get(carUrl),
-          axios.get(bikeUrl),
-        ]);
-        if (propertyRes.data?.properties) {
-          setProperties(propertyRes.data.properties);
-        }
-        if (Array.isArray(carRes.data)) {
-          setCars(carRes.data);
-        }
-        if (Array.isArray(bikeRes.data)) {
-          setBikes(bikeRes.data);
-        }
-
-        // // Log results (for debugging)
-        // console.log("Properties:", propertyRes.data);
-        // console.log(" Cars:", carRes.data);
-        // console.log("Bikes:", bikeRes.data);
+        const { properties, cars, bikes } = await getAllListings();
+        setProperties(properties);
+        setCars(cars);
+        setBikes(bikes);
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -77,8 +74,35 @@ const Home = forwardRef(function Home(props, ref) {
       }
     };
 
-    fetchAllData();
+    fetchData();
   }, []);
+
+  useEffect(() => {
+    if (location.state?.section) {
+      const section = location.state.section.toLowerCase();
+
+      const map = {
+        home: headingRef,
+        about: welcomeRef,
+        property: servicesRef,
+        cars: servicesRef,
+        bikes: servicesRef,
+      };
+
+      const targetRef = map[section];
+
+      setTimeout(() => {
+        if (targetRef?.current) {
+          targetRef.current.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        } else {
+          console.warn("Section ref not found:", section);
+        }
+      }, 400);
+    }
+  }, [location, loading]);
 
   const combinedData =
     activeTab === "Property"
@@ -89,6 +113,7 @@ const Home = forwardRef(function Home(props, ref) {
           title: p.propertyName,
           price: `${p.price} Cr`,
           location: p.location,
+
           beds: p.noOfBedrooms,
           baths: p.noOfBathrooms,
           area: p.sqFeet,
@@ -126,7 +151,7 @@ const Home = forwardRef(function Home(props, ref) {
       : combinedData.filter((item) => item.type === activeTab);
 
   const handleFooterNavigation = (section, tab = null) => {
-     const key = String(section || "").toLowerCase();
+    const key = String(section || "").toLowerCase();
 
     if (tab) {
       setActiveTab(tab);
@@ -551,12 +576,11 @@ const Home = forwardRef(function Home(props, ref) {
       <div>
         <div>
           <DetailsModal
-  show={showModal}
-  handleClose={handleClose}
-  selectedProperty={selectedProperty}
-  handleOpenEnquiry={handleOpenEnquiry}
-/>
-
+            show={showModal}
+            handleClose={handleClose}
+            selectedProperty={selectedProperty}
+            handleOpenEnquiry={handleOpenEnquiry}
+          />
         </div>
       </div>
       <Enqire

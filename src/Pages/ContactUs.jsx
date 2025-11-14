@@ -104,11 +104,13 @@ function ContactUs() {
                   <Col xs={12} md={6}>
                     <Form.Label className="txt-cont">Phone</Form.Label>
                     <Form.Control
-                      type="text"
+                      type="tel"
                       name="phone"
                       placeholder="Enter phone number"
                       value={formData.phone}
                       onChange={handleChange}
+                      pattern="^[0-9]{10}$"
+                      maxLength="10"
                       required
                     />
                   </Col>
